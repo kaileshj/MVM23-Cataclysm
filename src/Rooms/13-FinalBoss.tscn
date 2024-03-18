@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxitcagdytnng"]
+
+[ext_resource type="Texture2D" uid="uid://du7l6wshnuiio" path="res://src/Rooms/mapart/FinalBoss.png" id="1_6o8gr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecg3j"]
+size = Vector2(128, 28)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="FinalBoss" type="Sprite2D" parent="."]
+position = Vector2(829, 366)
+texture = ExtResource("1_6o8gr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(317, 110, 317, 430, 373, 431, 380, 424, 381, 174, 446, 174, 456, 164, 559, 164, 567, 174, 645, 174, 654, 163, 751, 164, 759, 174, 901, 174, 910, 164, 1007, 164, 1015, 174, 1093, 174, 1102, 164, 1198, 164, 1207, 174, 1277, 174, 1277, 246, 1287, 255, 1287, 288, 1277, 296, 1277, 374, 1287, 383, 1287, 416, 1277, 424, 1277, 501, 1287, 511, 1287, 544, 1273, 557, 317, 558, 317, 622, 1341, 622, 1341, 110)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(573, 444)
+shape = SubResource("RectangleShape2D_ecg3j")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1021, 444)
+shape = SubResource("RectangleShape2D_ecg3j")

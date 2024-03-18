@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://33eumec0p6t3"]
+
+[ext_resource type="Texture2D" uid="uid://bqmxs4o7jacyk" path="res://src/Rooms/mapart/BuzzsawParkour1.png" id="1_cu76b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdjl2"]
+size = Vector2(64, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oiwfh"]
+size = Vector2(64, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_de1ox"]
+size = Vector2(64, 127)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="BuzzsawParkour1" type="Sprite2D" parent="."]
+position = Vector2(1777, 469)
+texture = ExtResource("1_cu76b")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(49, 693, 236, 693, 241, 689, 241, 506, 237, 501, 113, 501, 113, 181, 243, 117, 368, 117, 497, 182, 497, 501, 561, 502, 561, 117, 1009, 117, 1010, 437, 1073, 437, 1073, 117, 1521, 117, 1521, 565, 1585, 565, 1585, 117, 2034, 117, 2033, 310, 2097, 310, 2097, 117, 2544, 117, 2545, 245, 2609, 245, 2608, 117, 2993, 117, 2993, 245, 3058, 245, 3057, 117, 3441, 117, 3441, 308, 2928, 309, 2928, 374, 3057, 373, 3056, 501, 3505, 501, 3505, 53, 49, 53)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(49, 821, 497, 821, 497, 630, 561, 629, 561, 821, 1009, 821, 1009, 565, 1073, 565, 1073, 821, 1521, 821, 1521, 692, 1585, 693, 1585, 820, 2033, 821, 2033, 693, 2097, 693, 2097, 820, 2545, 821, 2545, 629, 2609, 629, 2609, 820, 2993, 821, 2993, 692, 3121, 693, 3121, 629, 3505, 629, 3505, 885, 49, 885)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(274, 579)
+shape = SubResource("RectangleShape2D_bdjl2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(401, 707)
+shape = SubResource("RectangleShape2D_bdjl2")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(1809, 579)
+shape = SubResource("RectangleShape2D_bdjl2")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(2065, 501)
+shape = SubResource("RectangleShape2D_oiwfh")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(2577, 436.5)
+shape = SubResource("RectangleShape2D_de1ox")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://blyj8fvv6dxta"]
+
+[ext_resource type="Texture2D" uid="uid://byipj88uou6t8" path="res://src/Rooms/mapart/Buzzsaw2.png" id="1_qiocd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euihs"]
+size = Vector2(65, 512)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugbs8"]
+size = Vector2(64, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpela"]
+size = Vector2(128, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amn7x"]
+size = Vector2(638, 28)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Buzzsaw2" type="Sprite2D" parent="."]
+position = Vector2(712, 576)
+texture = ExtResource("1_qiocd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(72, 352, 132, 352, 136, 347, 136, 95, 456, 96, 456, 156, 461, 160, 964, 160, 968, 156, 968, 96, 1288, 96, 1288, 220, 1292, 224, 1352, 224, 1352, 32, 72, 32)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(72, 992, 387, 992, 391, 997, 392, 1056, 1032, 1056, 1032, 997, 1037, 992, 1352, 992, 1352, 1121, 72, 1121)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(72, 864, 129, 864, 136, 856, 135, 480, 196, 480, 200, 476, 200, 421, 195, 416, 72, 416)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1320.5, 608)
+shape = SubResource("RectangleShape2D_euihs")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(232, 622)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(424, 686)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(296, 814)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(1128, 622)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="."]
+position = Vector2(1128, 878)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="."]
+position = Vector2(1256, 750)
+shape = SubResource("RectangleShape2D_ugbs8")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="."]
+position = Vector2(712, 878)
+shape = SubResource("RectangleShape2D_jpela")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="."]
+position = Vector2(712, 494)
+shape = SubResource("RectangleShape2D_amn7x")

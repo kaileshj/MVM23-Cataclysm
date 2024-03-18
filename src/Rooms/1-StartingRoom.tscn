@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://s6su8ojcthae"]
+
+[ext_resource type="Script" path="res://src/mainscene/MainScene.gd" id="1_e4r2c"]
+[ext_resource type="Texture2D" uid="uid://bsl3vxak2mgic" path="res://src/Rooms/mapart/SpawnRoom.png" id="2_37j2j"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="3_equ3v"]
+[ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="4_8wsy6"]
+[ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="6_0vrj7"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="7_k5qiv"]
+[ext_resource type="PackedScene" uid="uid://bioxr2k8xem8a" path="res://src/UI/health_change_manager.tscn" id="8_li38u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8f0i6"]
+size = Vector2(576, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gd36"]
+size = Vector2(575, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46akm"]
+size = Vector2(64, 448)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a22rq"]
+size = Vector2(64, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh6m"]
+size = Vector2(39, 127)
+
+[node name="StartingRoom" type="Node2D"]
+script = ExtResource("1_e4r2c")
+
+[node name="SpawnRoom" type="Node2D" parent="."]
+
+[node name="SpawnRoom2" type="Sprite2D" parent="SpawnRoom"]
+show_behind_parent = true
+position = Vector2(320, 224)
+texture = ExtResource("2_37j2j")
+
+[node name="collisions" type="StaticBody2D" parent="SpawnRoom"]
+position = Vector2(-315, -89)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnRoom/collisions"]
+position = Vector2(667, 505)
+shape = SubResource("RectangleShape2D_8f0i6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpawnRoom/collisions"]
+position = Vector2(666.5, 121)
+shape = SubResource("RectangleShape2D_8gd36")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SpawnRoom/collisions"]
+position = Vector2(347, 313)
+shape = SubResource("RectangleShape2D_46akm")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="SpawnRoom/collisions"]
+position = Vector2(923, 249)
+shape = SubResource("RectangleShape2D_a22rq")
+
+[node name="StartToPracFight2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+script = ExtResource("6_0vrj7")
+transitioner = NodePath("../StartToPracFight/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartToPracFight2"]
+position = Vector2(621, 321)
+shape = SubResource("RectangleShape2D_ewh6m")
+
+[node name="StartToPracFight" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="StartToPracFight" instance=ExtResource("4_8wsy6")]
+current_scene = "StartingRoom"
+destination_scene = "PracticeFight"
+metadata/_edit_use_anchors_ = true
+
+[node name="player" parent="." instance=ExtResource("3_equ3v")]
+position = Vector2(90, 350)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+position = Vector2(230, -82)
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 268)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 642
+limit_bottom = 448
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("7_k5qiv")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthChangeManager" parent="." instance=ExtResource("8_li38u")]
+
+[connection signal="body_entered" from="StartToPracFight2" to="StartToPracFight2" method="_on_body_entered"]

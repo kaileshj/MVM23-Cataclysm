@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgrn2t631ax34"]
+
+[ext_resource type="Texture2D" uid="uid://cddkc7pbrfupu" path="res://src/Rooms/mapart/LasersAfterShadowCapsule.png" id="1_toeho"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bewq4"]
+size = Vector2(1856, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kaxep"]
+size = Vector2(64, 28)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="LasersAfterShadowCapsule" type="Sprite2D" parent="."]
+position = Vector2(1053, 629)
+texture = ExtResource("1_toeho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(957, 53.5)
+shape = SubResource("RectangleShape2D_bewq4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(29, 277, 414, 277, 413, 469, 669, 469, 669, 533, 157, 533, 157, 725, 477, 725, 477, 789, 349, 789, 349, 1109, 1118, 1109, 1117, 1173, 1885, 1173, 1885, 1045, 2013, 1045, 2013, 689, 1886, 689, 1885, 661, 2013, 661, 2013, 433, 1951, 433, 1948, 405, 2013, 405, 2013, 21, 2077, 21, 2077, 1237, 29, 1237)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(861, 789, 1181, 789, 1181, 853, 1309, 853, 1309, 917, 1693, 917, 1694, 982, 1180, 982, 1181, 917, 1053, 918, 1052, 853, 860, 853)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1053, 468, 1373, 469, 1373, 661, 1437, 662, 1437, 469, 1501, 469, 1501, 405, 1566, 405, 1566, 213, 1180, 212, 1181, 277, 1115, 277, 1116, 405, 1053, 405)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(765, 227)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(957, 547)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(573, 867)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(700, 995)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="."]
+position = Vector2(1662, 355)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="."]
+position = Vector2(1789, 483)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="."]
+position = Vector2(1021, 675)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="."]
+position = Vector2(1597, 611)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="."]
+position = Vector2(1661, 803)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="."]
+position = Vector2(1917, 227)
+shape = SubResource("RectangleShape2D_kaxep")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="."]
+position = Vector2(1980, 99)
+shape = SubResource("RectangleShape2D_kaxep")

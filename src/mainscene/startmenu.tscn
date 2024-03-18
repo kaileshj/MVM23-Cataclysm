@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxhubwfh0acan"]
+
+[ext_resource type="Script" path="res://src/mainscene/startmenu.gd" id="1_0ys5y"]
+[ext_resource type="Texture2D" uid="uid://kbs80unngye8" path="res://src/mainscene/startscreen.png" id="2_bdyma"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="3_wujmj"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="4_01ydb"]
+
+[node name="Startmenu" type="Node2D"]
+script = ExtResource("1_0ys5y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bdyma")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 80.0
+offset_top = 64.0
+offset_right = 328.0
+offset_bottom = 128.0
+text = "Play"
+
+[node name="player" parent="." instance=ExtResource("3_wujmj")]
+position = Vector2(401, 441)
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("4_01ydb")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

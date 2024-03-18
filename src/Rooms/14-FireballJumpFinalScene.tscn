@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://biho80aust0mj"]
+
+[ext_resource type="Texture2D" uid="uid://5026vwobkdud" path="res://src/Rooms/mapart/Fireball_Jump_final_room.png" id="1_52ndf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="FireballJumpFinalRoom" type="Sprite2D" parent="."]
+position = Vector2(832, 442)
+texture = ExtResource("1_52ndf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1376, 250, 1376, 310, 1372, 314, 160, 314, 160, 570, 1504, 570, 1504, 250, 1568, 250, 1568, 634, 96, 634, 96, 250)

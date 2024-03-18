@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dta0h5spb5t3k"]
+
+[ext_resource type="Script" path="res://src/MapElements/Platform.gd" id="1_rjvm0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rvg2"]
+size = Vector2(2.76585, 90.0463)
+
+[sub_resource type="Animation" id="Animation_krcor"]
+resource_name = "move"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1.52588e-05, 170), Vector2(700, 170), Vector2(-1.52588e-05, 170)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2g3h0"]
+_data = {
+"move": SubResource("Animation_krcor")
+}
+
+[node name="Platform" type="AnimatableBody2D"]
+position = Vector2(766, 181)
+scale = Vector2(11.48, 1)
+script = ExtResource("1_rjvm0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 19.883)
+rotation = -3.14159
+scale = Vector2(14.4621, 0.446816)
+shape = SubResource("RectangleShape2D_7rvg2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2g3h0")
+}

@@ -1,0 +1,165 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1m5dqh2y53m7"]
+
+[ext_resource type="Texture2D" uid="uid://dhx3ihqb50ygy" path="res://src/Rooms/mapart/LearnParkour.png" id="1_cjprl"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_h5pc5"]
+[ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_aksmm"]
+[ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_tyqpn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bb52l"]
+size = Vector2(514, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_inxrx"]
+size = Vector2(66, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oouba"]
+size = Vector2(128, 28.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_misng"]
+size = Vector2(192, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ga4h"]
+size = Vector2(44, 127.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wngjc"]
+size = Vector2(35, 63.875)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="LearnParkour" type="Sprite2D" parent="."]
+position = Vector2(640, 672)
+texture = ExtResource("1_cjprl")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-234, -100)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(234, 100, 234, 1188, 294, 1188, 298, 1184, 298, 1024, 426, 1024, 425, 996, 298, 996, 298, 614, 426, 614, 426, 585, 298, 586, 298, 356, 490, 356, 490, 164, 1450, 164, 1450, 228, 1514, 228, 1514, 100)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1514, 355, 1129, 357, 1129, 420, 1322, 421, 1322, 548, 1450, 548, 1451, 1188, 1257, 1188, 1258, 1252, 1130, 1253, 1130, 1380, 362, 1380, 362, 1252, 234, 1252, 234, 1444, 1514, 1444)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1062, 740, 1066, 745, 1066, 870, 1004, 932, 808, 933, 746, 870, 745, 740)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(937, 1073.5)
+shape = SubResource("RectangleShape2D_bb52l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1034, 562)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(971, 434)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1226, 690)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(586, 498)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(712, 754)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(457, 818)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(586, 946)
+shape = SubResource("RectangleShape2D_inxrx")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(490, 1137.88)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(618, 1266)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1258, 946)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1131, 818)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(810, 562)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(554, 690)
+shape = SubResource("RectangleShape2D_oouba")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(778, 370)
+shape = SubResource("RectangleShape2D_misng")
+
+[node name="player" parent="." instance=ExtResource("2_h5pc5")]
+position = Vector2(90, 1119)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(90, 1119)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 1280
+limit_bottom = 1345
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="PracFighttoCorridor" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor" instance=ExtResource("3_aksmm")]
+offset_left = -234.0
+offset_top = -100.0
+offset_right = -234.0
+offset_bottom = -100.0
+current_scene = "LearnParkour"
+destination_scene = "RealRoom"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-305, 805)
+script = ExtResource("4_tyqpn")
+transitioner = NodePath("../PracFighttoCorridor/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
+position = Vector2(1562, -612.125)
+shape = SubResource("RectangleShape2D_2ga4h")
+
+[node name="PracFighttoCorridor3" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor3" instance=ExtResource("3_aksmm")]
+offset_left = -234.0
+offset_top = -100.0
+offset_right = -234.0
+offset_bottom = -100.0
+current_scene = "LearnParkour"
+destination_scene = "SmallCorridor"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-305, 805)
+script = ExtResource("4_tyqpn")
+transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor4"]
+position = Vector2(322.5, 314.063)
+shape = SubResource("RectangleShape2D_wngjc")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(1134, 256)
+
+[connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
+[connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]

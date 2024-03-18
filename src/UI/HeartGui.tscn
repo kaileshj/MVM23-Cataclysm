@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://22anath2xe7b"]
+
+[ext_resource type="Script" path="res://src/UI/HeartGui.gd" id="1_h2fy0"]
+[ext_resource type="Texture2D" uid="uid://c4suia4e34o6r" path="res://src/player/art/Cat Assets/CatHearts.png" id="2_c2rj7"]
+
+[node name="HeartGui" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(80, 54)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_right = -1831.0
+offset_bottom = -1026.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h2fy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, 1)
+scale = Vector2(3, 3)
+texture = ExtResource("2_c2rj7")
+centered = false
+hframes = 2
