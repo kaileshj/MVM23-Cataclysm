@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://lvrfybwbbe4i"]
+[gd_scene load_steps=19 format=3 uid="uid://lvrfybwbbe4i"]
 
 [ext_resource type="Texture2D" uid="uid://b6awb0mpu3db5" path="res://src/Rooms/mapart/RealRoom.png" id="1_nek8f"]
 [ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_11ytq"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_03oo6"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_0seyb"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_4b36o"]
+[ext_resource type="PackedScene" uid="uid://bp44x2nq12kwj" path="res://src/Enemies/spinbot/SpinBot.tscn" id="6_e8o02"]
+[ext_resource type="PackedScene" uid="uid://qdrqfekvvbjy" path="res://src/Enemies/drone/drone.tscn" id="7_hjrb3"]
+[ext_resource type="PackedScene" uid="uid://cn4w8khk0ay0p" path="res://src/utils/UpgradeSerum.tscn" id="8_lpfji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mrte"]
-size = Vector2(64, 1151)
+size = Vector2(64, 1152)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5vo5"]
 size = Vector2(129, 63)
@@ -17,16 +21,25 @@ size = Vector2(193, 28)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3w1sa"]
 size = Vector2(64, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3v0x"]
+size = Vector2(189, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jletc"]
+size = Vector2(3, 128)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4c20a"]
 size = Vector2(42.5, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbreu"]
 size = Vector2(15, 189.375)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfi88"]
+size = Vector2(128.76, 21)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqmf5"]
 size = Vector2(27.625, 128.5)
 
-[node name="Node2D" type="Node2D"]
+[node name="RealRoom" type="Node2D"]
 
 [node name="RealRoom" type="Sprite2D" parent="."]
 position = Vector2(768, 800)
@@ -39,7 +52,7 @@ position = Vector2(-56, -76)
 polygon = PackedVector2Array(56, 204, 115, 204, 120, 198, 120, 139, 1592, 140, 1591, 76, 56, 76)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(56, 332, 436, 332, 440, 337, 441, 392, 436, 396, 377, 396, 313, 460, 313, 520, 308, 524, 183, 524, 184, 717, 691, 716, 696, 722, 696, 774, 691, 780, 184, 780, 184, 1479, 179, 1484, 56, 1484)
+polygon = PackedVector2Array(56, 332, 436, 332, 440, 337, 441, 392, 436, 396, 377, 396, 313, 460, 313, 520, 308, 524, 183, 524, 184, 717, 679, 716, 679, 714, 696, 714, 696, 722, 696, 774, 691, 780, 184, 780, 184, 1479, 179, 1484, 56, 1484)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(56, 1611, 696, 1612, 696, 1547, 1204, 1547, 1208, 1553, 1208, 1612, 1336, 1612, 1336, 1676, 56, 1677)
@@ -48,7 +61,7 @@ polygon = PackedVector2Array(56, 1611, 696, 1612, 696, 1547, 1204, 1547, 1208, 1
 polygon = PackedVector2Array(956, 396, 1331, 396, 1336, 401, 1336, 584, 1330, 588, 1272, 588, 1271, 652, 1208, 652, 1208, 1414, 1203, 1420, 1153, 1420, 1145, 1414, 1143, 1163, 443, 1164, 440, 1159, 440, 1105, 444, 1101, 1080, 1100, 1080, 1040, 1085, 1036, 1143, 1036, 1144, 652, 1025, 652, 1016, 641, 1015, 589, 957, 588, 952, 584, 952, 400)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1560, 907.5)
+position = Vector2(1560, 908)
 shape = SubResource("RectangleShape2D_4mrte")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
@@ -87,6 +100,14 @@ shape = SubResource("RectangleShape2D_3w1sa")
 position = Vector2(280, 1498)
 shape = SubResource("RectangleShape2D_3w1sa")
 
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1393.5, 1686)
+shape = SubResource("RectangleShape2D_r3v0x")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(57.5, 1548)
+shape = SubResource("RectangleShape2D_jletc")
+
 [node name="player" parent="." instance=ExtResource("2_11ytq")]
 position = Vector2(104, 223)
 
@@ -117,6 +138,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-246, -87)
+collision_mask = 2
 script = ExtResource("4_0seyb")
 transitioner = NodePath("../PracFighttoCorridor/Transitioner")
 
@@ -137,6 +159,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-246, -87)
+collision_mask = 2
 script = ExtResource("4_0seyb")
 transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 
@@ -152,20 +175,21 @@ offset_top = -76.0
 offset_right = -56.0
 offset_bottom = -76.0
 current_scene = "RealRoom"
-destination_scene = "LearnParkour"
+destination_scene = "LaserAfterShadow"
 metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor6" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-246, -87)
+collision_mask = 2
 script = ExtResource("4_0seyb")
 transitioner = NodePath("../PracFighttoCorridor5/Transitioner")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor6"]
 position = Vector2(1590.38, 1676.5)
-shape = SubResource("RectangleShape2D_rqmf5")
+shape = SubResource("RectangleShape2D_vfi88")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(1483, 256)
+position = Vector2(1211, 1536)
 
 [node name="PracFighttoCorridor7" type="CanvasLayer" parent="."]
 
@@ -180,6 +204,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor8" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-246, -87)
+collision_mask = 2
 script = ExtResource("4_0seyb")
 transitioner = NodePath("../PracFighttoCorridor7/Transitioner")
 
@@ -187,7 +212,52 @@ transitioner = NodePath("../PracFighttoCorridor7/Transitioner")
 position = Vector2(259.188, 278.25)
 shape = SubResource("RectangleShape2D_rqmf5")
 
+[node name="PracFighttoCorridor9" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor9" instance=ExtResource("3_03oo6")]
+offset_left = -56.0
+offset_top = -76.0
+offset_right = -56.0
+offset_bottom = -76.0
+current_scene = "RealRoom"
+destination_scene = "BuzzSaw1"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor10" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-246, -87)
+collision_mask = 2
+script = ExtResource("4_0seyb")
+transitioner = NodePath("../PracFighttoCorridor9/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor10"]
+position = Vector2(1769, 1559)
+shape = SubResource("RectangleShape2D_rqmf5")
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_4b36o")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpinBot" parent="." instance=ExtResource("6_e8o02")]
+position = Vector2(597, 620)
+
+[node name="Drone" parent="." instance=ExtResource("7_hjrb3")]
+position = Vector2(529, 741)
+
+[node name="SpinBot2" parent="." instance=ExtResource("6_e8o02")]
+position = Vector2(296, 1517)
+
+[node name="UpgradeSerum" parent="." instance=ExtResource("8_lpfji")]
+position = Vector2(1058, 944)
+ability_type = "fireball"
+
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor6" to="PracFighttoCorridor6" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor8" to="PracFighttoCorridor8" method="_on_body_entered"]
+[connection signal="body_entered" from="PracFighttoCorridor10" to="PracFighttoCorridor10" method="_on_body_entered"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnd00151vqrhh"]
+
+[ext_resource type="Script" path="res://src/utils/InteractionManager.gd" id="1_lcahc"]
+[ext_resource type="FontFile" uid="uid://b4klcex2u0b00" path="res://src/utils/Poppins-Black.ttf" id="2_7b2it"]
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_lcahc")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+offset_left = -68.0
+offset_right = 68.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_7b2it")
+text = "[E] TO INTERACT"
+horizontal_alignment = 1
+vertical_alignment = 1

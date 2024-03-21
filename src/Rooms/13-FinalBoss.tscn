@@ -1,23 +1,180 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxitcagdytnng"]
+[gd_scene load_steps=12 format=3 uid="uid://dxitcagdytnng"]
 
-[ext_resource type="Texture2D" uid="uid://du7l6wshnuiio" path="res://src/Rooms/mapart/FinalBoss.png" id="1_6o8gr"]
+[ext_resource type="Script" path="res://src/Rooms/13-FinalBoss.gd" id="1_2pel0"]
+[ext_resource type="Texture2D" uid="uid://f245ovk0iwln" path="res://src/Enemies/eye/art/FinalBoss.png" id="1_4o5o5"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="2_lgkwh"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="3_nomgd"]
+[ext_resource type="PackedScene" uid="uid://cgd5vff8m2xo6" path="res://src/Enemies/eye/largelaser.tscn" id="4_0vym7"]
+[ext_resource type="PackedScene" uid="uid://bf06fnijmpreb" path="res://src/Enemies/eye/eye.tscn" id="5_pvpcr"]
+[ext_resource type="PackedScene" uid="uid://b6eodo6ftq3qq" path="res://src/Enemies/eye/smalllaser.tscn" id="6_iksgf"]
+[ext_resource type="AudioStream" uid="uid://b501ofuw71av5" path="res://src/music/sfx/room_boss_noises.mp3" id="8_vojcg"]
+[ext_resource type="PackedScene" uid="uid://qdrqfekvvbjy" path="res://src/Enemies/drone/drone.tscn" id="9_qm4xg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecg3j"]
 size = Vector2(128, 28)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjh0n"]
+size = Vector2(15.5536, 56.6676)
+
+[node name="FinalBoss" type="Node2D"]
+script = ExtResource("1_2pel0")
 
 [node name="FinalBoss" type="Sprite2D" parent="."]
-position = Vector2(829, 366)
-texture = ExtResource("1_6o8gr")
+position = Vector2(512, 256)
+texture = ExtResource("1_4o5o5")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(317, 110, 317, 430, 373, 431, 380, 424, 381, 174, 446, 174, 456, 164, 559, 164, 567, 174, 645, 174, 654, 163, 751, 164, 759, 174, 901, 174, 910, 164, 1007, 164, 1015, 174, 1093, 174, 1102, 164, 1198, 164, 1207, 174, 1277, 174, 1277, 246, 1287, 255, 1287, 288, 1277, 296, 1277, 374, 1287, 383, 1287, 416, 1277, 424, 1277, 501, 1287, 511, 1287, 544, 1273, 557, 317, 558, 317, 622, 1341, 622, 1341, 110)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-317, -110)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(317, 110, 317, 430, 373, 431, 380, 424, 381, 174, 446, 174, 456, 164, 559, 164, 567, 174, 645, 174, 654, 163, 751, 164, 759, 174, 901, 174, 910, 164, 1007, 164, 1015, 174, 1093, 174, 1102, 164, 1198, 164, 1207, 174, 1277, 174, 1277, 246, 1287, 255, 1287, 288, 1277, 296, 1277, 374, 1287, 383, 1287, 416, 1277, 424, 1277, 501, 1287, 511, 1287, 544, 1273, 557, 330.953, 557.985, 331, 430, 317, 430, 317, 622, 1341, 622, 1341, 110)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(573, 444)
 shape = SubResource("RectangleShape2D_ecg3j")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1021, 444)
 shape = SubResource("RectangleShape2D_ecg3j")
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("2_lgkwh")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="player" parent="." instance=ExtResource("3_nomgd")]
+position = Vector2(65, 415)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+position = Vector2(230, -82)
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(295, 333)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 1023
+limit_bottom = 512
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Largelaser" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("4_0vym7")]
+position = Vector2(190, 73)
+rotation = -1.5708
+collision_area = NodePath("LargerLaser1")
+
+[node name="LargerLaser1" type="CollisionShape2D" parent="Largelaser"]
+position = Vector2(-9.99999, -246)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Eye" parent="." instance=ExtResource("5_pvpcr")]
+position = Vector2(472, 255)
+
+[node name="Largelaser2" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("4_0vym7")]
+position = Vector2(397, 72)
+rotation = -1.5708
+collision_area = NodePath("LargerLaser2")
+
+[node name="LargerLaser2" type="CollisionShape2D" parent="Largelaser2"]
+position = Vector2(0, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Largelaser3" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("4_0vym7")]
+position = Vector2(645, 73)
+rotation = -1.5708
+collision_area = NodePath("LargerLaser3")
+
+[node name="LargerLaser3" type="CollisionShape2D" parent="Largelaser3"]
+position = Vector2(0, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Largelaser4" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("4_0vym7")]
+position = Vector2(833, 72)
+rotation = -1.5708
+collision_area = NodePath("LargerLaser4")
+
+[node name="LargerLaser4" type="CollisionShape2D" parent="Largelaser4"]
+position = Vector2(0, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(975, 162)
+collision_area = NodePath("LargerLaser5")
+
+[node name="LargerLaser5" type="CollisionShape2D" parent="Smalllaser"]
+position = Vector2(1.5, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser2" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(974, 288)
+collision_area = NodePath("LargerLaser6")
+
+[node name="LargerLaser6" type="CollisionShape2D" parent="Smalllaser2"]
+position = Vector2(1.5, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser3" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(974, 416)
+collision_area = NodePath("LargerLaser7")
+
+[node name="LargerLaser7" type="CollisionShape2D" parent="Smalllaser3"]
+position = Vector2(1.5, 0.5)
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser4" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(61, 163)
+rotation = 3.14159
+collision_area = NodePath("../Smalllaser/LargerLaser5")
+
+[node name="LargerLaser8" type="CollisionShape2D" parent="Smalllaser4"]
+position = Vector2(1.5, 0.5)
+rotation = 3.14159
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser5" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(60, 289)
+rotation = 3.14159
+collision_area = NodePath("../Smalllaser2/LargerLaser6")
+
+[node name="LargerLaser9" type="CollisionShape2D" parent="Smalllaser5"]
+position = Vector2(1.5, 0.5)
+rotation = 3.14159
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="Smalllaser6" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("6_iksgf")]
+position = Vector2(6, 418)
+rotation = 3.14159
+collision_area = NodePath("../Smalllaser3/LargerLaser7")
+
+[node name="LargerLaser10" type="CollisionShape2D" parent="Smalllaser6"]
+position = Vector2(1.5, 0.5)
+rotation = 3.14159
+scale = Vector2(0.578647, 0.582343)
+shape = SubResource("RectangleShape2D_sjh0n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vojcg")
+volume_db = -20.0
+
+[node name="Drone" parent="." instance=ExtResource("9_qm4xg")]
+position = Vector2(757, 158)
+
+[node name="Drone2" parent="." instance=ExtResource("9_qm4xg")]
+position = Vector2(201, 196)

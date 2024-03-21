@@ -1,8 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://bp44x2nq12kwj"]
+[gd_scene load_steps=59 format=3 uid="uid://bp44x2nq12kwj"]
 
 [ext_resource type="Texture2D" uid="uid://dcw4vuh2qwgbj" path="res://src/Enemies/spinbot/art/SpinBotFinal.png" id="1_215hc"]
 [ext_resource type="Script" path="res://src/Enemies/spinbot/SpinBot.gd" id="1_t5p0g"]
-[ext_resource type="Script" path="res://src/Enemies/ai_robot/Damageable.gd" id="3_tad0j"]
+[ext_resource type="Script" path="res://src/Enemies/spinbot/Damageable.gd" id="3_tad0j"]
+[ext_resource type="Script" path="res://src/player/HealthSystem.gd" id="4_ajhp7"]
+[ext_resource type="AudioStream" uid="uid://buqbtjw0msw8d" path="res://src/music/sfx/all_robot_sounds.mp3" id="5_wuhn2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2go5e"]
 atlas = ExtResource("1_215hc")
@@ -87,6 +89,26 @@ region = Rect2(2688, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oqxlu"]
 atlas = ExtResource("1_215hc")
 region = Rect2(2752, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1alap"]
+atlas = ExtResource("1_215hc")
+region = Rect2(2048, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggncg"]
+atlas = ExtResource("1_215hc")
+region = Rect2(2112, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qax1f"]
+atlas = ExtResource("1_215hc")
+region = Rect2(2176, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6i00"]
+atlas = ExtResource("1_215hc")
+region = Rect2(2240, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ow85"]
+atlas = ExtResource("1_215hc")
+region = Rect2(2304, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_scwn0"]
 atlas = ExtResource("1_215hc")
@@ -262,6 +284,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_1alap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggncg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qax1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6i00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ow85")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_scwn0")
 }, {
 "duration": 1.0,
@@ -360,14 +402,13 @@ size = Vector2(260, 34)
 size = Vector2(64, 34)
 
 [node name="SpinBot" type="CharacterBody2D"]
-collision_layer = 15
-collision_mask = 15
+collision_layer = 12
+collision_mask = 3
 script = ExtResource("1_t5p0g")
 
 [node name="animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xec65")
-animation = &"unspin"
-frame_progress = 0.51844
+animation = &"death"
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 1)
@@ -375,20 +416,30 @@ shape = SubResource("RectangleShape2D_4tqnt")
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
 [node name="player_detector_collider" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2(-101, 1)
 shape = SubResource("RectangleShape2D_jtxib")
 
-[node name="Damageable" type="Node" parent="."]
+[node name="Damageable" type="Node" parent="." node_paths=PackedStringArray("character", "timer", "deathtimer")]
 script = ExtResource("3_tad0j")
-health = 10.0
+character = NodePath("..")
+timer = NodePath("Timer")
+deathtimer = NodePath("deathtimer")
+health = 9.0
 
 [node name="Timer" type="Timer" parent="Damageable"]
 wait_time = 0.25
 one_shot = true
 
+[node name="deathtimer" type="Timer" parent="Damageable"]
+wait_time = 1.2
+one_shot = true
+
 [node name="attackarea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 35
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackarea"]
 position = Vector2(-3, 1)
@@ -406,9 +457,19 @@ one_shot = true
 wait_time = 1.4
 one_shot = true
 
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("4_ajhp7")
+
+[node name="RobotNoises" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wuhn2")
+volume_db = -30.0
+bus = &"SFX"
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
 [connection signal="timeout" from="Damageable/Timer" to="Damageable" method="_on_timer_timeout"]
+[connection signal="timeout" from="Damageable/deathtimer" to="Damageable" method="_on_deathtimer_timeout"]
+[connection signal="area_entered" from="attackarea" to="HealthSystem" method="_on_attackarea_area_entered"]
 [connection signal="timeout" from="spin" to="." method="_on_spin_timeout"]
 [connection signal="timeout" from="charge" to="." method="_on_charge_timeout"]
 [connection signal="timeout" from="unspin" to="." method="_on_unspin_timeout"]

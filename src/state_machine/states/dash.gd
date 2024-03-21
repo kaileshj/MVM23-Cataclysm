@@ -2,7 +2,7 @@ extends 'res://src/state_machine/states/move.gd'
 
 @export
 var move_state: State
-
+@onready var DashAudio = $"../../Dash"
 @export
 var time_to_dash := 0.5
 
@@ -35,6 +35,7 @@ func process_physics(delta: float) -> State:
 	
 	# At this point, run 'process_physics' in the move script as written
 	return super(delta)
+	DashAudio.play()
 
 # Override movement inputs
 func get_movement_input() -> float:

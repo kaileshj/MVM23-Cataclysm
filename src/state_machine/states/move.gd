@@ -16,6 +16,12 @@ var fireball_state: State
 var allow_fall : bool
 @export
 var lightning_state: State
+@export
+var acid_state : State
+@export
+var death_state : State
+@onready var timers = $"../../timers"
+
 #var platVel = Vector2(0,0)
 
 signal facing_direction_changed(facing_right : bool)
@@ -24,17 +30,34 @@ var platVel = Vector2(0,0)
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed('dash'):
-		return dash_state
+		if PlayerManager.is_ability_unlocked("dash") && !timers.no_dash:
+			timers.dash.start()
+			timers.no_dash = true
+			return dash_state
 	if Input.is_action_just_pressed('attack'):
-		return attack_state
+		if PlayerManager.is_ability_unlocked("acid"):
+			print("attack triggered")
+			return acid_state
+		else:
+			return attack_state
 	if Input.is_action_just_pressed('fireball'):
-		return fireball_state
+		if PlayerManager.is_ability_unlocked("fireball") && !timers.no_fireball:
+		#PlayerManager.unlock_ability("fireball")
+			print("fireballs triggered")
+			timers.fireball.start()
+			timers.no_fireball = true
+			return fireball_state
 	if Input.is_action_just_pressed('lightning'):
-		print("lightning triggered")
-		return lightning_state
+		if PlayerManager.is_ability_unlocked("lightning") && !timers.no_fireball:
+			timers.lightning.start()
+			timers.no_lightning = true
+			print("lightning triggered")
+			return lightning_state
 	return null
 
 func process_physics(delta: float) -> State:
+	if PlayerManager.current_health <= 0:
+		return death_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state
 	platVel = parent.get_platform_velocity()

@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://t7jlc2h8t58a"]
+[gd_scene load_steps=10 format=3 uid="uid://t7jlc2h8t58a"]
 
 [ext_resource type="Texture2D" uid="uid://bkvx3701i2t2k" path="res://src/Rooms/mapart/extraLongCorridor.png" id="1_er23r"]
 [ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_ckhfj"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_ql6ro"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_1rv8u"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_htu4w"]
+[ext_resource type="PackedScene" uid="uid://qdrqfekvvbjy" path="res://src/Enemies/drone/drone.tscn" id="6_jisj8"]
+[ext_resource type="PackedScene" uid="uid://bp44x2nq12kwj" path="res://src/Enemies/spinbot/SpinBot.tscn" id="7_cv7iw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3u1xk"]
 size = Vector2(128, 19)
@@ -11,11 +14,20 @@ size = Vector2(128, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw5dw"]
 size = Vector2(28, 126.5)
 
-[node name="Node2D" type="Node2D"]
+[node name="ExtraLongCorridor" type="Node2D"]
 
 [node name="ExtraLongCorridoor" type="Sprite2D" parent="."]
 position = Vector2(1185, 161)
 texture = ExtResource("1_er23r")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-78, -196)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(79, 197, 79, 517, 143, 517, 143, 261, 719, 261, 719, 319, 726, 325, 906, 325, 911, 321, 911, 261, 1999, 261, 1999, 321, 2004, 325, 2187, 325, 2191, 321, 2191, 261, 2383, 261, 2383, 321, 2387, 325, 2447, 325, 2447, 197)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(271, 453, 271, 517, 2447, 517, 2481, 333, 2447, 325, 2447, 453, 1615, 453, 1615, 393, 1610, 389, 1427, 389, 1423, 394, 1423, 453, 272, 453, 272, 452, 271, 452)
 
 [node name="player" parent="." instance=ExtResource("2_ckhfj")]
 position = Vector2(2282, 225)
@@ -47,21 +59,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-78, -196)
+collision_mask = 2
 script = ExtResource("4_1rv8u")
 transitioner = NodePath("../PracFighttoCorridor/Transitioner")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
 position = Vector2(207, 507.5)
 shape = SubResource("RectangleShape2D_3u1xk")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-78, -196)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(79, 197, 79, 517, 143, 517, 143, 261, 719, 261, 719, 319, 726, 325, 906, 325, 911, 321, 911, 261, 1999, 261, 1999, 321, 2004, 325, 2187, 325, 2191, 321, 2191, 261, 2383, 261, 2383, 321, 2387, 325, 2447, 325, 2447, 197)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(271, 453, 271, 517, 2447, 517, 2447, 453, 1615, 453, 1615, 393, 1610, 389, 1427, 389, 1423, 394, 1423, 453)
 
 [node name="PracFighttoCorridor3" type="CanvasLayer" parent="."]
 
@@ -76,6 +80,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-78, -196)
+collision_mask = 2
 script = ExtResource("4_1rv8u")
 transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 
@@ -85,6 +90,25 @@ shape = SubResource("RectangleShape2D_uw5dw")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(2262, 257)
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_htu4w")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Drone" parent="." instance=ExtResource("6_jisj8")]
+position = Vector2(368, 111)
+
+[node name="SpinBot" parent="." instance=ExtResource("7_cv7iw")]
+position = Vector2(1294, 238)
+
+[node name="SpinBot2" parent="." instance=ExtResource("7_cv7iw")]
+position = Vector2(1590, 237)
 
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]

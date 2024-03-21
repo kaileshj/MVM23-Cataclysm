@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1m5dqh2y53m7"]
+[gd_scene load_steps=12 format=3 uid="uid://b1m5dqh2y53m7"]
 
 [ext_resource type="Texture2D" uid="uid://dhx3ihqb50ygy" path="res://src/Rooms/mapart/LearnParkour.png" id="1_cjprl"]
 [ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_h5pc5"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_aksmm"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_tyqpn"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_el7bf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bb52l"]
 size = Vector2(514, 29)
@@ -23,7 +24,7 @@ size = Vector2(44, 127.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wngjc"]
 size = Vector2(35, 63.875)
 
-[node name="Node2D" type="Node2D"]
+[node name="LearnParkour" type="Node2D"]
 
 [node name="LearnParkour" type="Sprite2D" parent="."]
 position = Vector2(640, 672)
@@ -131,6 +132,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-305, 805)
+collision_mask = 2
 script = ExtResource("4_tyqpn")
 transitioner = NodePath("../PracFighttoCorridor/Transitioner")
 
@@ -151,6 +153,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-305, 805)
+collision_mask = 2
 script = ExtResource("4_tyqpn")
 transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 
@@ -160,6 +163,16 @@ shape = SubResource("RectangleShape2D_wngjc")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(1134, 256)
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_el7bf")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]

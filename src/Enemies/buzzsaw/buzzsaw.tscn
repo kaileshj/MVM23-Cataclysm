@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://cv8qlt7lvq2wp"]
+
+[ext_resource type="Texture2D" uid="uid://dixsjcekxk127" path="res://src/Enemies/buzzsaw/Buzzsaw.png" id="1_mp1to"]
+[ext_resource type="Script" path="res://src/Enemies/buzzsaw/buzzsaw.gd" id="1_se643"]
+[ext_resource type="Script" path="res://src/player/HealthSystem.gd" id="3_3oyq6"]
+[ext_resource type="AudioStream" uid="uid://d1v8upnabg715" path="res://src/music/sfx/buzzsaw.mp3" id="4_wota0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlpmo"]
+atlas = ExtResource("1_mp1to")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xlhj"]
+atlas = ExtResource("1_mp1to")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gvgr"]
+atlas = ExtResource("1_mp1to")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r646x"]
+atlas = ExtResource("1_mp1to")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bhp2"]
+atlas = ExtResource("1_mp1to")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6nnw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlpmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xlhj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gvgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r646x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bhp2")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ladhs"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjvw4"]
+radius = 35.0143
+
+[node name="Buzzsaw" type="CharacterBody2D"]
+script = ExtResource("1_se643")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s6nnw")
+animation = &"spin"
+frame_progress = 0.999396
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ladhs")
+
+[node name="attackarea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attackarea"]
+shape = SubResource("CircleShape2D_mjvw4")
+
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("3_3oyq6")
+
+[node name="BuzzSaw" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wota0")
+volume_db = -40.0
+bus = &"SFX"
+
+[connection signal="area_entered" from="attackarea" to="HealthSystem" method="_on_attackarea_area_entered"]

@@ -1,14 +1,9 @@
 extends Node
 
-signal player_health_changed
-
 @export
-var maxHealth : int = 3
-@export
-var health : int = maxHealth
+var knockback_velocity : Vector2 = Vector2(100,0)
 
-
-func _on_hitbox_area_entered(area):
-	if area.name == "attackarea":
-		health -= 1
-		player_health_changed.emit(health)
+func _on_attackarea_area_entered(area):
+	print(area)
+	if area.name == "hitbox":
+		SignalBus.emit_signal("on_health_lost", -1)

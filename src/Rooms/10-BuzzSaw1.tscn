@@ -1,6 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://33eumec0p6t3"]
+[gd_scene load_steps=15 format=3 uid="uid://33eumec0p6t3"]
 
+[ext_resource type="Script" path="res://src/Rooms/10-BuzzSaw1.gd" id="1_4kkpw"]
 [ext_resource type="Texture2D" uid="uid://bqmxs4o7jacyk" path="res://src/Rooms/mapart/BuzzsawParkour1.png" id="1_cu76b"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_bmgwg"]
+[ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_b3ue5"]
+[ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_b4hcy"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_1wkpk"]
+[ext_resource type="PackedScene" uid="uid://dmwev1jua2fny" path="res://src/utils/HealingFish.tscn" id="6_k76ea"]
+[ext_resource type="PackedScene" uid="uid://qdrqfekvvbjy" path="res://src/Enemies/drone/drone.tscn" id="7_o8t2f"]
+[ext_resource type="PackedScene" uid="uid://cv8qlt7lvq2wp" path="res://src/Enemies/buzzsaw/buzzsaw.tscn" id="8_2wdh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdjl2"]
 size = Vector2(64, 28)
@@ -11,34 +19,228 @@ size = Vector2(64, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_de1ox"]
 size = Vector2(64, 127)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j25kp"]
+size = Vector2(18, 127.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahh76"]
+size = Vector2(40, 127.25)
+
+[node name="BuzzSaw1" type="Node2D"]
+position = Vector2(683, 4)
+script = ExtResource("1_4kkpw")
 
 [node name="BuzzsawParkour1" type="Sprite2D" parent="."]
-position = Vector2(1777, 469)
+position = Vector2(1728, 416)
 texture = ExtResource("1_cu76b")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-49, -53)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(49, 693, 236, 693, 241, 689, 241, 506, 237, 501, 113, 501, 113, 181, 243, 117, 368, 117, 497, 182, 497, 501, 561, 502, 561, 117, 1009, 117, 1010, 437, 1073, 437, 1073, 117, 1521, 117, 1521, 565, 1585, 565, 1585, 117, 2034, 117, 2033, 310, 2097, 310, 2097, 117, 2544, 117, 2545, 245, 2609, 245, 2608, 117, 2993, 117, 2993, 245, 3058, 245, 3057, 117, 3441, 117, 3441, 308, 2928, 309, 2928, 374, 3057, 373, 3056, 501, 3505, 501, 3505, 53, 49, 53)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(49, 821, 497, 821, 497, 630, 561, 629, 561, 821, 1009, 821, 1009, 565, 1073, 565, 1073, 821, 1521, 821, 1521, 692, 1585, 693, 1585, 820, 2033, 821, 2033, 693, 2097, 693, 2097, 820, 2545, 821, 2545, 629, 2609, 629, 2609, 820, 2993, 821, 2993, 692, 3121, 693, 3121, 629, 3505, 629, 3505, 885, 49, 885)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(274, 579)
 shape = SubResource("RectangleShape2D_bdjl2")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(401, 707)
 shape = SubResource("RectangleShape2D_bdjl2")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1809, 579)
 shape = SubResource("RectangleShape2D_bdjl2")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(2065, 501)
 shape = SubResource("RectangleShape2D_oiwfh")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(2577, 436.5)
 shape = SubResource("RectangleShape2D_de1ox")
+
+[node name="player" parent="." instance=ExtResource("2_bmgwg")]
+position = Vector2(71, 736)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(71, 736)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 3456
+limit_bottom = 832
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="PracFighttoCorridor" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor" instance=ExtResource("3_b3ue5")]
+offset_left = -17.0
+offset_top = -10.0
+offset_right = -17.0
+offset_bottom = -10.0
+current_scene = "BuzzSaw1"
+destination_scene = "RealRoom"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-17, -10)
+collision_mask = 2
+script = ExtResource("4_b4hcy")
+transitioner = NodePath("../PracFighttoCorridor/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
+position = Vector2(26, 714.25)
+shape = SubResource("RectangleShape2D_j25kp")
+
+[node name="PracFighttoCorridor3" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor3" instance=ExtResource("3_b3ue5")]
+offset_left = -17.0
+offset_top = -10.0
+offset_right = -17.0
+offset_bottom = -10.0
+current_scene = "BuzzSaw1"
+destination_scene = "BuzzSaw2"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-17, -10)
+collision_mask = 2
+script = ExtResource("4_b4hcy")
+transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor4"]
+position = Vector2(3452, 521.625)
+shape = SubResource("RectangleShape2D_ahh76")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(3346, 576)
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_1wkpk")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HealingFish" parent="." instance=ExtResource("6_k76ea")]
+position = Vector2(3342, 246)
+
+[node name="Drone" parent="." instance=ExtResource("7_o8t2f")]
+position = Vector2(262, 227)
+
+[node name="Buzzsaw" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(543, 737)
+
+[node name="Buzzsaw2" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(605, 737)
+
+[node name="Buzzsaw3" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(668, 737)
+
+[node name="Buzzsaw5" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(796, 737)
+
+[node name="Buzzsaw6" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(861, 737)
+
+[node name="Buzzsaw7" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(925, 737)
+
+[node name="Buzzsaw4" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(731, 737)
+
+[node name="Buzzsaw8" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1057, 736)
+
+[node name="Buzzsaw9" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1119, 736)
+
+[node name="Buzzsaw10" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1182, 736)
+
+[node name="Buzzsaw11" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1310, 736)
+
+[node name="Buzzsaw12" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1375, 736)
+
+[node name="Buzzsaw13" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1439, 736)
+
+[node name="Buzzsaw14" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1245, 736)
+
+[node name="Buzzsaw15" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1570, 737)
+
+[node name="Buzzsaw16" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1632, 737)
+
+[node name="Buzzsaw17" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1695, 737)
+
+[node name="Buzzsaw18" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1823, 737)
+
+[node name="Buzzsaw19" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1888, 737)
+
+[node name="Buzzsaw20" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1952, 737)
+
+[node name="Buzzsaw21" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(1758, 737)
+
+[node name="Buzzsaw22" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2079, 735)
+
+[node name="Buzzsaw23" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2141, 735)
+
+[node name="Buzzsaw24" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2204, 735)
+
+[node name="Buzzsaw25" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2332, 735)
+
+[node name="Buzzsaw26" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2397, 735)
+
+[node name="Buzzsaw27" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2461, 735)
+
+[node name="Buzzsaw28" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2267, 735)
+
+[node name="Buzzsaw29" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2593, 735)
+
+[node name="Buzzsaw30" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2655, 735)
+
+[node name="Buzzsaw31" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2718, 735)
+
+[node name="Buzzsaw32" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2846, 735)
+
+[node name="Buzzsaw33" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2911, 735)
+
+[node name="Buzzsaw35" parent="." instance=ExtResource("8_2wdh4")]
+position = Vector2(2781, 735)
+
+[connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
+[connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]

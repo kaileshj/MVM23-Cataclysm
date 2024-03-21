@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://qdrqfekvvbjy"]
+
+[ext_resource type="Texture2D" uid="uid://d3s1dbb7oil5e" path="res://src/Enemies/drone/art/Drone.png" id="1_1wd1g"]
+[ext_resource type="Script" path="res://src/Enemies/drone/drone.gd" id="1_6i68m"]
+[ext_resource type="PackedScene" uid="uid://c21n5qctd8b" path="res://src/Enemies/drone/bullet.tscn" id="2_3pf2d"]
+[ext_resource type="AudioStream" uid="uid://buqbtjw0msw8d" path="res://src/music/sfx/all_robot_sounds.mp3" id="4_qavgp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drfja"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqc27"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejb6n"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ujvj"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6g10"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mp6w"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngier"]
+atlas = ExtResource("1_1wd1g")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ycjbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drfja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqc27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejb6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ujvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6g10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mp6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngier")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdyiy"]
+size = Vector2(40, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xbaa"]
+size = Vector2(315.625, 170)
+
+[node name="Drone" type="CharacterBody2D"]
+script = ExtResource("1_6i68m")
+patrol_distance = 200
+Bullet = ExtResource("2_3pf2d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ycjbo")
+animation = &"move"
+frame_progress = 0.704109
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -9.5)
+shape = SubResource("RectangleShape2D_fdyiy")
+
+[node name="RobotNoises" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qavgp")
+volume_db = -30.0
+bus = &"SFX"
+
+[node name="playerdetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerdetector"]
+shape = SubResource("RectangleShape2D_5xbaa")
+
+[connection signal="body_entered" from="playerdetector" to="." method="_on_playerdetector_body_entered"]

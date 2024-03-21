@@ -16,6 +16,10 @@ var spin_timer = $spin
 var unspin_timer = $unspin
 @onready
 var charge_timer = $charge
+@onready
+var RobotAudio = $RobotNoises
+@onready
+var damageable = $Damageable
 
 var is_attacking : bool = false 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -27,6 +31,7 @@ var player : Node
 
 func _ready():
 	#anim.connect("animation_finished", self, "_on_animations_animation_finished")
+	RobotAudio.play()
 	set_physics_process(true)
 
 func _physics_process(delta):
@@ -52,7 +57,8 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _handle_patrol(delta):
-	anim.play("move")
+	if !damageable.stop_anim:
+		anim.play("move")
 	#patrol_timer -= delta
 	if is_on_wall():#patrol_timer <= 0:
 		direction *= -1  # Change direction
@@ -75,7 +81,8 @@ func _handle_spin(delta):
 func _handle_chase(delta):
 	# Move towards the player more quickly
 	# Replace `get_player_position()` with your method of obtaining the player's position
-	anim.play("spinmovement")
+	if !damageable.stop_anim:
+		anim.play("spinmovement")
 	velocity.x = direction * CHASE_SPEED
 
 func get_player_position() -> Vector2:
@@ -87,25 +94,27 @@ func _on_player_detector_body_entered(body):
 	if is_attacking or body.name != "player" or state != "patrol":
 		return 
 	
-	print("state is spin")
+	#print("state is spin")
 	
 	var player_position = get_player_position()  
 	if player_position.x < global_position.x:
 		direction = -1
 	else:
 		direction = 1
-	anim.play_backwards("unspin")
+	if !damageable.stop_anim:
+		anim.play_backwards("unspin")
 	spin_timer.start()
 	state = "spin"
 	is_attacking = true
 
 func _on_spin_timeout():
-	print("timed out")
+	#print("timed out")
 	charge_timer.start()
 	state = "chase"
 
 func _on_charge_timeout():
-	anim.play("unspin")
+	if !damageable.stop_anim:
+		anim.play("unspin")
 	unspin_timer.start()
 	state = "unspin"
 	

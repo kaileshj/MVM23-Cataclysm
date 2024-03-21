@@ -13,3 +13,4 @@ func on_flip_direction(flip : bool):
 		position = facing_left_position
 	else:
 		position = facing_right_position
+

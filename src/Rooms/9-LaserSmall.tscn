@@ -1,9 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqb7t6fsdqoi5"]
+[gd_scene load_steps=17 format=3 uid="uid://dqb7t6fsdqoi5"]
 
+[ext_resource type="Script" path="res://src/Rooms/9-LaserSmall.gd" id="1_06jry"]
 [ext_resource type="Texture2D" uid="uid://tunbx771r5kn" path="res://src/Rooms/mapart/LaserSmall.png" id="1_yn1fh"]
 [ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_p1ht1"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_v206t"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_2fhak"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_na2oj"]
+[ext_resource type="PackedScene" uid="uid://b6eodo6ftq3qq" path="res://src/Enemies/eye/smalllaser.tscn" id="7_0q3xe"]
+[ext_resource type="PackedScene" uid="uid://dmwev1jua2fny" path="res://src/utils/HealingFish.tscn" id="8_o1rg8"]
+[ext_resource type="PackedScene" uid="uid://qdrqfekvvbjy" path="res://src/Enemies/drone/drone.tscn" id="9_v5lxa"]
+[ext_resource type="PackedScene" uid="uid://bp44x2nq12kwj" path="res://src/Enemies/spinbot/SpinBot.tscn" id="10_boq5n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qesqv"]
 size = Vector2(64, 28)
@@ -11,19 +17,26 @@ size = Vector2(64, 28)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ouw2q"]
 size = Vector2(256, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo8ml"]
+size = Vector2(20, 147)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbqyl"]
 size = Vector2(44, 126.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qunhl"]
-size = Vector2(44, 191.375)
+size = Vector2(44, 62.6875)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixkyu"]
+
+[node name="LaserSmall" type="Node2D"]
+script = ExtResource("1_06jry")
 
 [node name="LaserSmall" type="Sprite2D" parent="."]
-position = Vector2(979, 510)
+position = Vector2(864, 448)
 texture = ExtResource("1_yn1fh")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-115, -62)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1171, 524)
@@ -54,15 +67,23 @@ polygon = PackedVector2Array(1843, 830, 1527, 831, 1523, 826, 1523, 771, 1527, 7
 position = Vector2(1357, 460)
 shape = SubResource("RectangleShape2D_ouw2q")
 
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1852, 887.5)
+shape = SubResource("RectangleShape2D_jo8ml")
+
 [node name="player" parent="." instance=ExtResource("2_p1ht1")]
-position = Vector2(244, 286)
+position = Vector2(129, 224)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(244, 286)
-zoom = Vector2(2, 2)
+position = Vector2(129, 224)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 1728
+limit_bottom = 896
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -70,12 +91,17 @@ drag_vertical_enabled = true
 [node name="PracFighttoCorridor" type="CanvasLayer" parent="."]
 
 [node name="Transitioner" parent="PracFighttoCorridor" instance=ExtResource("3_v206t")]
+offset_left = -115.0
+offset_top = -62.0
+offset_right = -115.0
+offset_bottom = -62.0
 current_scene = "LaserSmall"
 destination_scene = "LongComputerRoom"
 metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
-position = Vector2(-107, -30)
+position = Vector2(-222, -92)
+collision_mask = 2
 script = ExtResource("4_2fhak")
 transitioner = NodePath("../PracFighttoCorridor/Transitioner")
 
@@ -84,17 +110,22 @@ position = Vector2(1926, 347.375)
 shape = SubResource("RectangleShape2D_hbqyl")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(1737, 382)
+position = Vector2(1622, 320)
 
 [node name="PracFighttoCorridor3" type="CanvasLayer" parent="."]
 
 [node name="Transitioner" parent="PracFighttoCorridor3" instance=ExtResource("3_v206t")]
+offset_left = -115.0
+offset_top = -62.0
+offset_right = -115.0
+offset_bottom = -62.0
 current_scene = "LaserSmall"
 destination_scene = "RealRoom"
 metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
-position = Vector2(-107, -30)
+position = Vector2(-222, -92)
+collision_mask = 2
 script = ExtResource("4_2fhak")
 transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 
@@ -102,5 +133,116 @@ transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 position = Vector2(246, 252.688)
 shape = SubResource("RectangleShape2D_qunhl")
 
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_na2oj")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Smalllaser" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(223, 508)
+rotation = -1.5708
+collision_area = NodePath("Laser1")
+
+[node name="Laser1" type="CollisionShape2D" parent="Smalllaser"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser2" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(357, 507)
+rotation = -1.5708
+collision_area = NodePath("Laser2")
+
+[node name="Laser2" type="CollisionShape2D" parent="Smalllaser2"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser3" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(288, 508)
+rotation = -1.5708
+collision_area = NodePath("Laser3")
+
+[node name="Laser3" type="CollisionShape2D" parent="Smalllaser3"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser4" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(665, 508)
+rotation = -1.5708
+collision_area = NodePath("Laser4")
+
+[node name="Laser4" type="CollisionShape2D" parent="Smalllaser4"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser5" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(768, 509)
+rotation = -1.5708
+collision_area = NodePath("Laser5")
+
+[node name="Laser5" type="CollisionShape2D" parent="Smalllaser5"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser6" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(343, 59)
+rotation = -1.5708
+collision_area = NodePath("Laser6")
+
+[node name="Laser6" type="CollisionShape2D" parent="Smalllaser6"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="Smalllaser7" parent="." node_paths=PackedStringArray("collision_area") instance=ExtResource("7_0q3xe")]
+position = Vector2(540, 60)
+rotation = -1.5708
+collision_area = NodePath("Laser7")
+
+[node name="Laser7" type="CollisionShape2D" parent="Smalllaser7"]
+shape = SubResource("RectangleShape2D_ixkyu")
+
+[node name="HealingFish" parent="." instance=ExtResource("8_o1rg8")]
+position = Vector2(119, 759)
+
+[node name="HealingFish2" parent="." instance=ExtResource("8_o1rg8")]
+position = Vector2(507, 757)
+
+[node name="Drone" parent="." instance=ExtResource("9_v5lxa")]
+position = Vector2(1109, 197)
+
+[node name="Drone2" parent="." instance=ExtResource("9_v5lxa")]
+position = Vector2(1347, 294)
+
+[node name="SpinBot" parent="." instance=ExtResource("10_boq5n")]
+position = Vector2(1336, 813)
+
+[node name="lasertimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="PracFighttoCorridor5" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor5" instance=ExtResource("3_v206t")]
+offset_left = -115.0
+offset_top = -62.0
+offset_right = -115.0
+offset_bottom = -62.0
+current_scene = "LaserSmall"
+destination_scene = "BuzzSaw2"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor6" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+position = Vector2(-222, -92)
+collision_mask = 2
+script = ExtResource("4_2fhak")
+transitioner = NodePath("../PracFighttoCorridor5/Transitioner")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor6"]
+position = Vector2(1926, 891.344)
+shape = SubResource("RectangleShape2D_qunhl")
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(1591, 832)
+
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]
+[connection signal="timeout" from="lasertimer" to="." method="_on_lasertimer_timeout"]
+[connection signal="body_entered" from="PracFighttoCorridor6" to="PracFighttoCorridor6" method="_on_body_entered"]

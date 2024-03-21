@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn0krhvy2oit4"]
+[gd_scene load_steps=10 format=3 uid="uid://dn0krhvy2oit4"]
 
-[ext_resource type="Script" path="res://src/mainscene/MainScene.gd" id="1_4okcv"]
 [ext_resource type="Texture2D" uid="uid://5j4tmgqm2b03" path="res://src/Rooms/mapart/PracticeFight.png" id="1_22805"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="2_gbi5o"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_q0u6r"]
@@ -15,10 +14,9 @@ size = Vector2(8, 128)
 size = Vector2(40, 127)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5tig1"]
-size = Vector2(44, 63.5)
+size = Vector2(40, 63.5)
 
 [node name="PracticeFight" type="Node2D"]
-script = ExtResource("1_4okcv")
 
 [node name="PracticeFight" type="Sprite2D" parent="."]
 position = Vector2(448, 224)
@@ -61,6 +59,7 @@ destination_scene = "StartingRoom"
 metadata/_edit_use_anchors_ = true
 
 [node name="StartToPracFight2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+collision_mask = 2
 script = ExtResource("4_q0u6r")
 transitioner = NodePath("../StartToPracFight/Transitioner")
 
@@ -76,24 +75,26 @@ destination_scene = "SmallCorridor"
 metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
+collision_mask = 2
 script = ExtResource("4_q0u6r")
 transitioner = NodePath("../PracFighttoCorridor/Transitioner")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
-position = Vector2(878, 224.25)
+position = Vector2(876, 224.25)
 shape = SubResource("RectangleShape2D_5tig1")
+
+[node name="SpinBot" parent="." instance=ExtResource("7_l286q")]
+position = Vector2(424, 360)
 
 [node name="HealthContainerLayer" type="CanvasLayer" parent="."]
 
 [node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_3jadr")]
-anchors_preset = 0
-anchor_right = 0.0
+anchors_preset = 1
+anchor_left = 1.0
 anchor_bottom = 0.0
-grow_horizontal = 1
+grow_horizontal = 0
 grow_vertical = 1
-
-[node name="SpinBot" parent="." instance=ExtResource("7_l286q")]
-position = Vector2(424, 360)
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="StartToPracFight2" to="StartToPracFight2" method="_on_body_entered"]
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]

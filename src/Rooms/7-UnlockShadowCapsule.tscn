@@ -1,21 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://0uo4u04hleap"]
+[gd_scene load_steps=9 format=3 uid="uid://0uo4u04hleap"]
 
 [ext_resource type="Texture2D" uid="uid://bp1rxy0a5f75g" path="res://src/Rooms/mapart/UnlockShadowCapsule.png" id="1_c27e3"]
 [ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_x6hgs"]
 [ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_bqc3m"]
 [ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_twgac"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_48xfc"]
+[ext_resource type="PackedScene" uid="uid://cn4w8khk0ay0p" path="res://src/utils/UpgradeSerum.tscn" id="6_n5jw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04e1y"]
 size = Vector2(28, 126)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bo4c"]
-size = Vector2(2754, 1793)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74mem"]
+size = Vector2(2621, 62)
 
-[node name="Node2D" type="Node2D"]
+[node name="UnlockShadowCapsule" type="Node2D"]
 
 [node name="UnlockShadowCapsule" type="Sprite2D" parent="."]
 position = Vector2(1376, 896)
 texture = ExtResource("1_c27e3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-17, -10)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(17, 10, 81, 10, 81, 1482, 593, 1482, 594, 1546, 273, 1546, 274, 1737, 81, 1739, 81, 1802, 17, 1802)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(209, 10, 209, 139, 2704, 138, 2705, 202, 2769, 202, 2769, 9)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(2769, 330, 2706, 330, 2705, 1802, 2769, 1802)
 
 [node name="player" parent="." instance=ExtResource("2_x6hgs")]
 position = Vector2(128, 56)
@@ -41,34 +55,53 @@ offset_left = -17.0
 offset_top = -10.0
 offset_right = -17.0
 offset_bottom = -10.0
-current_scene = "ExtraLongCorridor"
-destination_scene = "UnlockShadowCapsule"
+current_scene = "UnlockShadowCapsule"
+destination_scene = "LaserAfterShadow"
 metadata/_edit_use_anchors_ = true
 
 [node name="PracFighttoCorridor2" type="Area2D" parent="."]
 position = Vector2(-17, -10)
+collision_mask = 2
 script = ExtResource("4_twgac")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
 position = Vector2(2755, 265)
 shape = SubResource("RectangleShape2D_04e1y")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_48xfc")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeSerum" parent="." instance=ExtResource("6_n5jw3")]
+position = Vector2(401, 1456)
+ability_type = "shadow"
+
+[node name="PracFighttoCorridor3" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor3" instance=ExtResource("3_bqc3m")]
+offset_left = -17.0
+offset_top = -10.0
+offset_right = -17.0
+offset_bottom = -10.0
+current_scene = "UnlockShadowCapsule"
+destination_scene = "StartingRoom"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor4" type="Area2D" parent="." node_paths=PackedStringArray("transitioner")]
 position = Vector2(-17, -10)
+collision_mask = 2
+script = ExtResource("4_twgac")
+transitioner = NodePath("../PracFighttoCorridor3/Transitioner")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(17, 10, 81, 10, 81, 1482, 593, 1482, 594, 1546, 273, 1546, 274, 1737, 81, 1739, 81, 1802, 17, 1802)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(209, 10, 209, 139, 2704, 138, 2705, 202, 2769, 202, 2769, 9)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(2769, 330, 2706, 330, 2705, 1802, 2769, 1802)
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1377, 897.5)
-shape = SubResource("RectangleShape2D_4bo4c")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor4"]
+position = Vector2(1392.5, 1769)
+shape = SubResource("RectangleShape2D_74mem")
 
 [connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
+[connection signal="body_entered" from="PracFighttoCorridor4" to="PracFighttoCorridor4" method="_on_body_entered"]

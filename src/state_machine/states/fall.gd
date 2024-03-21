@@ -6,6 +6,9 @@ var idle_state: State
 var move_state: State
 @export
 var dash_state: State
+@export
+var death_state : State
+@onready var timers = $"../../timers"
 
 var direction := 1.0
 
@@ -33,5 +36,8 @@ func process_physics(delta: float) -> State:
 	
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed('dash'):
-		return dash_state
+		if PlayerManager.is_ability_unlocked("dash") && !timers.no_dash:
+			timers.dash.start()
+			timers.no_dash = true
+			return dash_state
 	return null

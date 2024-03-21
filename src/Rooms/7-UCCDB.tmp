@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://0uo4u04hleap"]
+
+[ext_resource type="Texture2D" uid="uid://bp1rxy0a5f75g" path="res://src/Rooms/mapart/UnlockShadowCapsule.png" id="1_c27e3"]
+[ext_resource type="PackedScene" uid="uid://di4b3fet5cvsw" path="res://src/player/player.tscn" id="2_x6hgs"]
+[ext_resource type="PackedScene" uid="uid://bgdku0cohrxoa" path="res://src/UI/transitions.tscn" id="3_bqc3m"]
+[ext_resource type="Script" path="res://src/mainscene/TransitionDetector.gd" id="4_twgac"]
+[ext_resource type="PackedScene" uid="uid://d1qsrxwwh5f3h" path="res://src/UI/HeartContainer.tscn" id="5_48xfc"]
+[ext_resource type="PackedScene" uid="uid://cn4w8khk0ay0p" path="res://src/utils/UpgradeSerum.tscn" id="6_n5jw3"]
+[ext_resource type="Script" path="res://src/Rooms/DeathZone.gd" id="7_64ofs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04e1y"]
+size = Vector2(28, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jphh"]
+size = Vector2(2624, 20)
+
+[node name="UnlockShadowCapsule" type="Node2D"]
+
+[node name="UnlockShadowCapsule" type="Sprite2D" parent="."]
+position = Vector2(1376, 896)
+texture = ExtResource("1_c27e3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-17, -10)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(17, 10, 81, 10, 81, 1482, 593, 1482, 594, 1546, 273, 1546, 274, 1737, 81, 1739, 81, 1802, 17, 1802)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(209, 10, 209, 139, 2704, 138, 2705, 202, 2769, 202, 2769, 9)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(2769, 330, 2706, 330, 2705, 1802, 2769, 1802)
+
+[node name="player" parent="." instance=ExtResource("2_x6hgs")]
+position = Vector2(128, 56)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 56)
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 2754
+limit_bottom = 1795
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="PracFighttoCorridor" type="CanvasLayer" parent="."]
+
+[node name="Transitioner" parent="PracFighttoCorridor" instance=ExtResource("3_bqc3m")]
+offset_left = -17.0
+offset_top = -10.0
+offset_right = -17.0
+offset_bottom = -10.0
+current_scene = "UnlockShadowCapsule"
+destination_scene = "LaserAfterShadow"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracFighttoCorridor2" type="Area2D" parent="."]
+position = Vector2(-17, -10)
+collision_mask = 2
+script = ExtResource("4_twgac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PracFighttoCorridor2"]
+position = Vector2(2755, 265)
+shape = SubResource("RectangleShape2D_04e1y")
+
+[node name="HealthContainerLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartContainer" parent="HealthContainerLayer" instance=ExtResource("5_48xfc")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeSerum" parent="." instance=ExtResource("6_n5jw3")]
+position = Vector2(401, 1456)
+ability_type = "shadow"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+script = ExtResource("7_64ofs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1376, 1782)
+shape = SubResource("RectangleShape2D_6jphh")
+
+[connection signal="body_entered" from="PracFighttoCorridor2" to="PracFighttoCorridor2" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
